@@ -1,70 +1,59 @@
 
+🧠 TraceMind – Terminal-Based OSINT & Recon Tool
 
-# TraceMind
+TraceMind is a powerful, terminal-based reconnaissance and OSINT (Open Source Intelligence) tool designed for cybersecurity researchers and ethical hackers.
 
-**TraceMind** is a terminal-based OSINT (Open Source Intelligence) tool designed to help cybersecurity analysts and enthusiasts perform layered reconnaissance and information gathering.
-
----
-
-## 🛠 Features
-
-- 🔍 IP WHOIS Lookup
-- 🌍 GEOIP Lookup
-- 📡 DNS & Ping
-- 🔁 Reverse IP Lookup
-- 👤 Username Lookup
-- 🛰 Shodan Scan
-- 🖼 metadata Extract
-- 🕒 Timezone & Country Detection
-- ⛔Exit
-
----
-
-## 📦 Installation
-
-```bash
-git clone https://github.com/rauftimuri/TraceMind.git
-cd TraceMind
-pip3 install -r requirements.txt
-
-Make sure Python 3 and pip are installed on your system.
+It integrates several aggressive scanning modules to support fast and informative analysis across IPs, domains, and open sources.
 
 ⸻
 
-🚀 Usage
+🔍 Features
+	•	[1] IP WHOIS – Retrieves domain/IP registration information.
+	•	[2] GEOIP Lookup – Determines geolocation via multiple APIs.
+	•	[3] DNS & Ping – Performs DNS enumeration and fast ICMP scanning.
+	•	[4] Deep OSINT Lookup – Searches across the internet (Google, GitHub, Reddit, Pastebin, etc.) for leaked or suspicious data.
+	•	[5] Timezone & Country – Detects timezone and country for a given IP.
 
+⸻
+
+⚠️ Module 4 Warning – Deep OSINT Lookup
+
+Module 4 performs broad, multi-platform querying using aggressive headers and deep search logic.
+It can uncover potentially sensitive data and access public traces across indexed platforms.
+🛑 Use it carefully and ethically, and only on targets you’re authorized to analyze.
+
+⸻
+
+💻 Installation
+
+git clone https://github.com/your-username/TraceMind.git
+cd TraceMind
+pip install -r requirements.txt
 python3 main.py
 
-Then follow the interactive menu to choose a feature.
+Works on Kali Linux, Parrot OS, and other Python3-enabled distros.
 
 ⸻
 
-📁 Project Structure
-
-TraceMind/
-├── main.py
-├── README.md
-├── requirements.txt
-└── modules/
-    ├── ip_whois.py
-    ├── geoip.py
-    ├── dns_ping.py
-    ├── reverse_ip.py
-    ├── username_lookup.py
-    ├── shodan_scan.py
-    ├── timezone_country.py
-    └── metadata_extract.py
-
+📁 Modules
+	•	ip_whois.py
+	•	geoip.py
+	•	dns_ping.py
+	•	deep_lookup.py
+	•	timezone_country.py
 
 ⸻
 
-⚠️ Disclaimer
+✅ Usage
 
-This tool is intended for educational and ethical testing purposes only.
-You are solely responsible for any misuse.
+Perfect for:
+	•	CTF & red team recon
+	•	Threat intelligence training
+	•	OSINT research & early incident response
+	•	Learning ethical hacking fundamentals
 
 ⸻
-
-✨ 
 
 Created by Rauf TIMURI
+
+⸻
