@@ -26,7 +26,7 @@ It can uncover potentially sensitive data and access public traces across indexe
 
 💻 Installation
 
-git clone https://github.com/your-username/TraceMind.git
+git clone https://github.com/rauftimuri/TraceMind.git
 cd TraceMind
 pip install -r requirements.txt
 python3 main.py
