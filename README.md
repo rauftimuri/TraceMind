@@ -57,3 +57,14 @@ Perfect for:
 Created by Rauf TIMURI
 
 ⸻
+## 📸 Screenshots
+
+### 🔍 TraceMind Interface
+
+![Screenshot 1](screenshots/Screenshot_2025-08-06_06_35_47.png)
+
+![Screenshot 2](screenshots/Screenshot_2025-08-06_06_37_33.png)
+
+![Screenshot 3](screenshots/Screenshot_2025-08-06_06_39_00.png)
+
+![Screenshot 4](screenshots/Screenshot_2025-08-06_06_39_08.png)
