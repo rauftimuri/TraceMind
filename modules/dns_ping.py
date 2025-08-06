@@ -1,23 +1,63 @@
-# modules/dns_ping.py
-
 import socket
 import subprocess
-from colorama import Fore, Style
+import platform
+import dns.resolver
 
-def run_dns_ping():
-    domain = input(Fore.YELLOW + "\n[?] Enter domain or IP: " + Style.RESET_ALL)
+def print_section(title):
+    print(f"\n\033[96m[+] {title}\033[0m")
+
+def resolve_record(domain, record_type):
+    try:
+        answers = dns.resolver.resolve(domain, record_type, lifetime=5)
+        return [str(rdata) for rdata in answers]
+    except Exception as e:
+        return [f"Error: {e}"]
+
+def ping_host(host):
+    system = platform.system()
+    if system == "Windows":
+        command = ["ping", "-n", "3", host]
+    else:
+        command = ["ping", "-c", "3", host]
 
     try:
-        # DNS çözümleme
-        ip = socket.gethostbyname(domain)
-        print(Fore.GREEN + f"[*] Resolved IP: {ip}" + Style.RESET_ALL)
-
-        # Ping at
-        print(Fore.CYAN + f"[*] Pinging {domain}...\n" + Style.RESET_ALL)
-        output = subprocess.getoutput(f"ping -c 4 {domain}")
-        print(Fore.WHITE + output + Style.RESET_ALL)
-
-    except socket.gaierror:
-        print(Fore.RED + "[!] Invalid domain or IP!" + Style.RESET_ALL)
+        output = subprocess.check_output(command, stderr=subprocess.STDOUT, universal_newlines=True, timeout=8)
+        return output
+    except subprocess.CalledProcessError as e:
+        return e.output
     except Exception as e:
-        print(Fore.RED + f"[!] Error: {e}" + Style.RESET_ALL)
+        return f"Ping failed: {e}"
+
+def run():
+    print("\n\033[94m[🌐] DNS & Ping Scanner\033[0m")
+    domain = input("Enter domain to analyze (e.g., google.com): ").strip()
+
+    print_section("A Record (IPv4)")
+    for result in resolve_record(domain, "A"):
+        print("  \033[92m- " + result + "\033[0m")
+
+    print_section("AAAA Record (IPv6)")
+    for result in resolve_record(domain, "AAAA"):
+        print("  \033[92m- " + result + "\033[0m")
+
+    print_section("CNAME Record")
+    for result in resolve_record(domain, "CNAME"):
+        print("  \033[92m- " + result + "\033[0m")
+
+    print_section("MX Record (Mail Servers)")
+    for result in resolve_record(domain, "MX"):
+        print("  \033[92m- " + result + "\033[0m")
+
+    print_section("NS Record (Name Servers)")
+    for result in resolve_record(domain, "NS"):
+        print("  \033[92m- " + result + "\033[0m")
+
+    print_section("TXT Record")
+    for result in resolve_record(domain, "TXT"):
+        print("  \033[92m- " + result + "\033[0m")
+
+    print_section("Ping Results")
+    ping_output = ping_host(domain)
+    print("\033[90m" + ping_output + "\033[0m")
+
+    input("\n\033[94mPress Enter to return to menu...\033[0m")

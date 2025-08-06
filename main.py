@@ -1,46 +1,60 @@
-# main.py
+import os
 
-from colorama import Fore, Style
-import sys
+# Modülleri içe aktar
+import modules.ip_whois as ip_whois
+import modules.geoip as geoip
+import modules.dns_ping as dns_ping
+import modules.deep_lookup as deep_lookup
+import modules.timezone_country as timezone_country
 
-# Aktif modülleri içe aktar
-from modules.ip_whois import run_ip_whois
-from modules.geoip import run_geoip
-from modules.dns_ping import run_dns_ping
-from modules.username_lookup import run_username_lookup
-from modules.shodan_scan import run_shodan_scan
-from modules.timezone_country import run_timezone_country
+def clear():
+    os.system("clear" if os.name == "posix" else "cls")
 
-def main_menu():
+def banner():
+    print("\033[91m")
+    print("████████╗██████╗  █████╗  ██████╗███████╗███╗   ███╗██╗███╗   ██╗██████╗ ")
+    print("╚══██╔══╝██╔══██╗██╔══██╗██╔════╝██╔════╝████╗ ████║██║████╗  ██║██╔══██╗")
+    print("   ██║   ██████╔╝███████║██║     █████╗  ██╔████╔██║██║██╔██╗ ██║██║  ██║")
+    print("   ██║   ██╔═══╝ ██╔══██║██║     ██╔══╝  ██║╚██╔╝██║██║██║╚██╗██║██║  ██║")
+    print("   ██║   ██║     ██║  ██║╚██████╗███████╗██║ ╚═╝ ██║██║██║ ╚████║██████╔╝")
+    print("   ╚═╝   ╚═╝     ╚═╝  ╚═╝ ╚═════╝╚══════╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═════╝ ")
+    print("\033[0m")
+
+    print("\033[92mCreated by \033[91mRauf TIMURI\033[0m\n")
+    print("\033[91m33\033[0m\n")
+
+def show_menu():
+    print("[1] IP WHOIS")
+    print("[2] GEOIP Lookup")
+    print("[3] DNS & Ping")
+    print("[4] Deep OSINT Lookup")
+    print("[5] Timezone & Country Lookup")
+    print("[0] Exit")
+
+def main():
     while True:
-        print(Fore.GREEN + "\n===== TraceMind Menu =====" + Style.RESET_ALL)
-        print("[1] IP WHOIS")
-        print("[2] GEOIP Lookup")
-        print("[3] DNS & Ping")
-        print("[5] Username Lookup")
-        print("[6] Shodan Scan")
-        print("[8] Timezone & Country")
-        print("[0] Exit")
-
-        choice = input(Fore.BLUE + "\nEnter your choice: " + Style.RESET_ALL)
+        clear()
+        banner()
+        show_menu()
+        choice = input("\nEnter your choice: ").strip()
 
         if choice == "1":
-            run_ip_whois()
+            ip_whois.run()
         elif choice == "2":
-            run_geoip()
+            geoip.run()
         elif choice == "3":
-            run_dns_ping()
+            dns_ping.run()
+        elif choice == "4":
+            deep_lookup.run()
         elif choice == "5":
-            run_username_lookup()
-        elif choice == "6":
-            run_shodan_scan()
-        elif choice == "8":
-            run_timezone_country()
+            timezone_country.run()
         elif choice == "0":
-            print(Fore.RED + "\nExiting TraceMind..." + Style.RESET_ALL)
-            sys.exit()
+            print("Exiting TraceMind...")
+            break
         else:
-            print(Fore.RED + "[!] Invalid choice!" + Style.RESET_ALL)
+            print("[!] Invalid choice.")
+
+        input("\nPress Enter to return to menu...")
 
 if __name__ == "__main__":
-    main_menu()
+    main()

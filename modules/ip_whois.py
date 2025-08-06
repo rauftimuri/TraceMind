@@ -1,22 +1,36 @@
-# modules/ip_whois.py
-
 import whois
-from colorama import Fore, Style
 
-def run_ip_whois():
-    ip = input(Fore.YELLOW + "\n[?] Enter an IP address to look up: " + Style.RESET_ALL)
+def run():
+    print("\n\033[94m[🌐] IP WHOIS Lookup\033[0m")
+    domain = input("Enter a domain (e.g., google.com): ")
+
     try:
-        print(Fore.CYAN + "[*] Performing WHOIS lookup..." + Style.RESET_ALL)
-        result = whois.whois(ip)
+        w = whois.whois(domain)
+        print("\n\033[93m========== WHOIS INFO ==========\033[0m\n")
 
-        print(Fore.GREEN + "\n--- WHOIS Information ---")
-        print("Domain:", result.domain)
-        print("Registrar:", result.registrar)
-        print("Creation Date:", result.creation_date)
-        print("Expiration Date:", result.expiration_date)
-        print("Name Servers:", result.name_servers)
-        print("Emails:", result.emails)
-        print("--------------------------" + Style.RESET_ALL)
+        def print_if_exists(label, data):
+            if data:
+                # Listeyse virgülle birleştir
+                if isinstance(data, list):
+                    data = ', '.join(str(d) for d in data)
+                elif isinstance(data, set):
+                    data = ', '.join(data)
+                print(f"\033[92m{label}:\033[0m {data}")
+
+        print_if_exists("Domain Name", w.domain_name)
+        print_if_exists("Registrar", w.registrar)
+        print_if_exists("WHOIS Server", w.whois_server)
+        print_if_exists("Updated Date", w.updated_date)
+        print_if_exists("Created Date", w.creation_date)
+        print_if_exists("Expiration Date", w.expiration_date)
+        print_if_exists("Name Servers", w.name_servers)
+        print_if_exists("Status", w.status)
+        print_if_exists("Emails", w.emails)
+        print_if_exists("DNSSEC", w.dnssec)
+        print_if_exists("Organization", w.org)
+        print_if_exists("Country", w.country)
 
     except Exception as e:
-        print(Fore.RED + "[!] Error occurred: " + str(e) + Style.RESET_ALL)
+        print(f"\n\033[91m[!] Error: {e}\033[0m")
+
+    input("\n\033[94mPress Enter to return to menu...\033[0m")
